@@ -68,6 +68,7 @@ int main() {
 
     // deleting the linked list
     deleteNodeList(head, current);
+    head = nullptr;
     output(head);
 
     return 0;
@@ -127,12 +128,10 @@ void deleteNodeList(Node *head, Node *current)
 {
     current = head;
     while (current) {
-        cout << "Current Node Value: " << current->value << endl;
         head = current->next;
         delete current;
         current = head;
     }
-    head = nullptr;
 }
 
 void insertNode(Node *current, Node *prev, Node *head, int entry)
