@@ -10,7 +10,7 @@ struct Node {
 
 void output(Node *);
 void addNodeToFront(Node *head, Node *newNode, int nodeVal);
-void deleteNode(Node *current, int entryToDelete);
+void deleteNode(Node *current, Node *head, Node *prev, int entry);
 
 int main() {
     Node *head = nullptr;
@@ -35,19 +35,7 @@ int main() {
     // traverse that many times and delete that node
     current = head;
     Node *prev = head;
-    for (int i = 0; i < (entry-1); i++)
-    if (i == 0)
-        current = current->next;
-    else {
-        current = current->next;
-        prev = prev->next;
-    }
-// at this point, delete current and reroute pointers
-if (current) {  // checks for current to be valid before deleting the node
-    prev->next = current->next;
-    delete current;
-    current = nullptr;
-}
+    deleteNode(current, head, prev, entry);
     output(head);
 
     // insert a node
@@ -110,15 +98,30 @@ void addNodeToFront(Node *head, Node *newNode, int nodeVal)
         head = newNode;
         newNode->next = nullptr;
         newNode->value = nodeVal;
+        cout << "First node added with value " << nodeVal << endl;
     }
     else { // its a second or subsequent node; place at the head
         newNode->next = head;
         newNode->value = nodeVal;
         head = newNode;
+        cout << "Node added with value " << nodeVal << endl;
     }
 }
 
-void deleteNode(Node *current, int entryToDelete)
+void deleteNode(Node *current, Node *head, Node *prev, int entry)
 {
-    // To Do: delete the node.
+    current = head;
+    for (int i = 0; i < (entry-1); i++)
+    if (i == 0)
+        current = current->next;
+    else {
+        current = current->next;
+        prev = prev->next;
+    }
+    // at this point, delete current and reroute pointers
+    if (current) {  // checks for current to be valid before deleting the node
+        prev->next = current->next;
+        delete current;
+        current = nullptr;
+    }
 }
