@@ -9,7 +9,7 @@ struct Node {
 };
 
 void output(Node *);
-void *addNodeToFront(Node *head, Node *newNode, int nodeVal);
+Node *addNodeToFront(Node *head, Node *newNode, int nodeVal);
 void deleteNode(Node *current, Node *head, Node *prev, int entry);
 void deleteNodeList(Node *head, Node *current);
 void insertNode(Node *current, Node *prev);
@@ -87,21 +87,20 @@ void output(Node * hd) {
     cout << endl;
 }
 
-void addNodeToFront(Node *head, Node *newNode, int nodeVal)
+Node *addNodeToFront(Node *head, Node *newNode, int nodeVal)
 {
     // adds node at head
     if (!head) { // if this is the first node, it's the new head
         head = newNode;
         newNode->next = nullptr;
         newNode->value = nodeVal;
-        cout << "First node added with value " << nodeVal << endl;
     }
     else { // its a second or subsequent node; place at the head
         newNode->next = head;
         newNode->value = nodeVal;
         head = newNode;
-        cout << "Node added with value " << nodeVal << endl;
     }
+    return head;
 }
 
 void deleteNode(Node *current, Node *head, Node *prev, int entry)
@@ -110,11 +109,9 @@ void deleteNode(Node *current, Node *head, Node *prev, int entry)
     for (int i = 0; i < (entry-1); i++)
     if (i == 0)
     {
-        cout << "Current value: " << current->value << endl;
         current = current->next;
     }
     else {
-        cout << "Current value: " << current->value << endl;
         current = current->next;
         prev = prev->next;
     }
@@ -130,6 +127,7 @@ void deleteNodeList(Node *head, Node *current)
 {
     current = head;
     while (current) {
+        cout << "Current Node Value: " << current->value << endl;
         head = current->next;
         delete current;
         current = head;
@@ -144,11 +142,9 @@ void insertNode(Node *current, Node *prev, Node *head, int entry)
     for (int i = 0; i < (entry); i++)
     if (i == 0)
     {
-        cout << "Current value: " << current->value << endl;
         current = current->next;
     }
     else {
-        cout << "Current value: " << current->value << endl;
         current = current->next;
         prev = prev->next;
     }
