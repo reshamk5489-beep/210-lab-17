@@ -11,6 +11,8 @@ struct Node {
 void output(Node *);
 void addNodeToFront(Node *head, Node *newNode, int nodeVal);
 void deleteNode(Node *current, Node *head, Node *prev, int entry);
+void deleteNodeList(Node *head, Node *current);
+void insertNode(Node *current, Node *prev);
 
 int main() {
     Node *head = nullptr;
@@ -65,13 +67,7 @@ int main() {
     prev->next = newnode;    output(head);
 
     // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
+    deleteNodeList(head, current);
     output(head);
 
     return 0;
@@ -113,8 +109,12 @@ void deleteNode(Node *current, Node *head, Node *prev, int entry)
     current = head;
     for (int i = 0; i < (entry-1); i++)
     if (i == 0)
+    {
+        cout << "Current value: " << current->value << endl;
         current = current->next;
+    }
     else {
+        cout << "Current value: " << current->value << endl;
         current = current->next;
         prev = prev->next;
     }
@@ -123,5 +123,29 @@ void deleteNode(Node *current, Node *head, Node *prev, int entry)
         prev->next = current->next;
         delete current;
         current = nullptr;
+    }
+}
+
+void deleteNodeList(Node *head, Node *current)
+{
+    current = head;
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
+    }
+    head = nullptr;
+}
+
+void insertNode(Node *current, Node *prev, Node *head, int entry)
+{
+    current = head;
+    prev = head;
+    for (int i = 0; i < (entry); i++)
+    if (i == 0)
+        current = current->next;
+    else {
+        current = current->next;
+        prev = prev->next;
     }
 }
